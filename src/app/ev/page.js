@@ -1,8 +1,8 @@
-"use client";
+"use client"
 import React from "react";
-import { useTable, useSortBy, usePagination } from "react-table";
-import { data } from "./data.json";
-import styles from "./page.module.css"; // Import the CSS module
+import { useTable, usePagination } from "react-table";
+import  data  from "./data.json";
+import styles from "./page.module.css"; 
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 
@@ -57,8 +57,8 @@ const Page = () => {
       data,
       initialState: { pageIndex: 0, pageSize: 6 },
     },
-    useSortBy,
-    usePagination
+
+    usePagination,
   );
 
   return (
@@ -68,16 +68,10 @@ const Page = () => {
         <table {...getTableProps()} className={styles.table}>
           <thead>
             {headerGroups.map((hg) => (
-              <tr {...hg.getHeaderGroupProps()}>
+              <tr key={hg.id} {...hg.getHeaderGroupProps()}>
                 {hg.headers.map((column) => (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className={styles.th}
-                  >
+                  <th key={column.id} className={styles.th}>
                     {column.render("Header")}
-                    {column.isSorted && (
-                      <span>{column.isSortedDesc ? " 🔽" : " 🔼"}</span>
-                    )}
                   </th>
                 ))}
               </tr>
@@ -88,9 +82,13 @@ const Page = () => {
               prepareRow(row);
 
               return (
-                <tr {...row.getRowProps()} className={styles.tr}>
+                <tr key={row.id} {...row.getRowProps()} className={styles.tr}>
                   {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()} className={styles.td}>
+                    <td
+                      key={cell.id}
+                      {...cell.getCellProps()}
+                      className={styles.td}
+                    >
                       {cell.render("Cell")}
                     </td>
                   ))}
